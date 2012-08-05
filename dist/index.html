@@ -63,9 +63,6 @@
           into your project.
         </p>
         <br />
-        <p>
-          This is currently a beta product. Please <a href="https://github.com/jgilfelt/android-actionbarstylegenerator/issues">report bugs</a>.
-        </p>
         
       </div>
       
@@ -86,6 +83,8 @@
         <p>Built upon the <a href="http://code.google.com/p/android-ui-utils">android-ui-utils</a> asset studio framework created by <a href="http://roman.nurik.net/">Roman Nurik</a>, copyright Google Inc.</p>
         <br/>
         <p>All generated art is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.</p>
+        <br />
+        <p>Extended by Nathan Schwermann to generate moblico themes. </p>
       </div>
     </div>
 
@@ -126,6 +125,7 @@
        var xmlTemplates = {
        	    'styles':1,
        	    'styles-sherlock':1,
+			'styles-moblico':1,
        	    'colors':1,
        	    //'focused_background':1,
        	    'pressed_background':1,
@@ -376,7 +376,8 @@
         	'style':(styleName.toLowerCase()),
         	'base':((baseTheme == 'light') ? '.Light' : ''),
         	'accent':(values['accentColor'].color.substring(1)),
-        	'actionbarstyle':(values['actionbarstyle'])
+        	'actionbarstyle':(values['actionbarstyle']),
+			'moblico_base':((baseTheme == 'light') ? '': '.Dark')
         };
         
         zipper.clear();
@@ -388,7 +389,7 @@
           
           // process xml
           for (var template in xmlTemplates) {
-          	if (template == 'styles-sherlock') continue;
+          	if (template == 'styles-sherlock' || template == 'styles-moblico') continue;
           	var dir;
           	var suffix = '';
           	if (template == 'styles' || template == 'colors') {
@@ -396,6 +397,9 @@
           		if (template == 'styles' && compat == 'sherlock') {
           			suffix = '-sherlock'
           		}
+				else if(template == 'styles' && compat == 'moblico'){
+					suffix = '-moblico'	
+				}
           	} else {
           		dir = 'res/drawable/';
           	}
@@ -622,11 +626,12 @@
             title: 'Style compatibility',
             buttons: true,
             options: [
-              { id: 'holo', title: 'Holo' },
-              { id: 'sherlock', title: 'Sherlock' }
+            //  { id: 'holo', title: 'Holo' },
+            //  { id: 'sherlock', title: 'Sherlock' },
+			  { id: 'moblico' , title: 'Moblico'}
             ],
             helpText: 'Sherlock styles require the <a href="http://actionbarsherlock.com">ActionBarSherlock</a> library.',
-            defaultValue: 'holo'
+            defaultValue: 'moblico'
           }),
           new studio.forms.EnumField('theme', {
             title: 'Base theme',
@@ -673,8 +678,6 @@
       });
       form.createUI($('#inputs-form').get(0));
     </script>
-  
-    <a href="https://github.com/jgilfelt/android-actionbarstylegenerator"><img style="position: absolute; top: 0; right: 0; border: 0;" src="images/ForkMe_Blk.png" alt="Fork me on GitHub" /></a>
   
   </body>
 </html>
