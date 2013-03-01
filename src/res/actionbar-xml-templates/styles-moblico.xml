@@ -105,7 +105,7 @@
     </style>
 
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
-    <style name="Theme.##style##.widget" parent="@style/Theme.Sherlock">
+    <style name="Theme.##style##.widget" parent="@style/Theme.Sherlock.Light">
         <item name="popupMenuStyle">@style/##style##_PopupMenu</item>
         <item name="dropDownListViewStyle">@style/##style##_DropDownListView</item>
         
